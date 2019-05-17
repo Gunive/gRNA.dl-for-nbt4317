@@ -79,12 +79,8 @@ history = model.fit(partial_x_train, partial_y_train, epochs=50, batch_size=64, 
 results = model.evaluate(test_data, test_labels)
 print(results)
 
-
-'''
 history_dict = history.history
 history_dict.keys()
-'''
-
 
 # 参数的图像表示
 

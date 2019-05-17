@@ -60,7 +60,6 @@ partial_y_train = train_labels[10000:]
 model = keras.Sequential()
 model.add(keras.layers.Convolution1D(filters=64, kernel_size=3, input_shape=(20,4), padding='same'))
 model.add(keras.layers.GlobalAveragePooling1D())
-# model.add(keras.layers.MaxPooling1D())
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dropout(0.3))
 model.add(keras.layers.Dense(80, activation=tf.nn.relu))

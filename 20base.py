@@ -45,32 +45,32 @@ with open('nbt.4317-S3.txt', 'r') as file:
 
 # 随机
 
-train_data = SEQ[5000:]
-train_labels = SCA[5000:]
-test_data = SEQ[:5000]
-test_labels = SCA[:5000]
-x_val = train_data[5000:10000]
-partial_x_train = train_data[10000:]
-y_val = train_labels[5000:10000]
-partial_y_train = train_labels[10000:]
+train_data = SEQ[8194:]
+train_labels = SCA[8194:]
+test_data = SEQ[:8194]
+test_labels = SCA[:8194]
+x_val = train_data[0:8194]
+partial_x_train = train_data[8194:]
+y_val = train_labels[0:8194]
+partial_y_train = train_labels[8194:]
 
 
 # keras C1D卷积
 
 model = keras.Sequential()
 model.add(keras.layers.Convolution1D(filters=64, kernel_size=3, input_shape=(20,4), padding='same'))
-model.add(keras.layers.GlobalAveragePooling1D())
+model.add(keras.layers.MaxPooling1D())
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dropout(0.3))
-model.add(keras.layers.Dense(80, activation=tf.nn.relu))
+model.add(keras.layers.Dense(64, activation=tf.nn.relu))
 model.add(keras.layers.Dropout(0.3))
-model.add(keras.layers.Dense(40, activation=tf.nn.relu))
+model.add(keras.layers.Dense(32, activation=tf.nn.relu))
 model.add(keras.layers.Dense(1, activation=tf.nn.sigmoid))
 model.summary()
 
 model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
 
-history = model.fit(partial_x_train, partial_y_train, epochs=50, batch_size=64, validation_data=(x_val, y_val), verbose=1)
+history = model.fit(partial_x_train, partial_y_train, epochs=25, batch_size=32, validation_data=(x_val, y_val), verbose=1)
 
 
 # 测试
@@ -114,4 +114,3 @@ plt.ylabel('Accuracy')
 plt.legend()
 
 plt.show()
-

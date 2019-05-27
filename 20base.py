@@ -59,7 +59,7 @@ partial_y_train = train_labels[8194:]
 
 model = keras.Sequential()
 model.add(keras.layers.Convolution1D(filters=64, kernel_size=3, input_shape=(20,4), padding='same'))
-model.add(keras.layers.MaxPooling1D())
+model.add(keras.layers.GlobalAveragePooling1D())
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dropout(0.3))
 model.add(keras.layers.Dense(64, activation=tf.nn.relu))
@@ -70,7 +70,7 @@ model.summary()
 
 model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
 
-history = model.fit(partial_x_train, partial_y_train, epochs=25, batch_size=32, validation_data=(x_val, y_val), verbose=1)
+history = model.fit(partial_x_train, partial_y_train, epochs=128, batch_size=256, validation_data=(x_val, y_val), verbose=1)
 
 
 # 测试
@@ -92,9 +92,8 @@ val_loss = history.history['val_loss']
 
 epochs = range(1, len(acc) + 1)
 
-plt.plot(epochs, loss, 'bo', label='Training loss')
-
-plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.plot(epochs, loss, '-', label='Training loss', color='blue')
+plt.plot(epochs, val_loss, '--', label='Validation loss' , color='red')
 plt.title('Training and validation loss')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
@@ -106,8 +105,8 @@ plt.clf()
 acc_values = history_dict['acc']
 val_acc_values = history_dict['val_acc']
 
-plt.plot(epochs, acc, 'bo', label='Training acc')
-plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.plot(epochs, acc, '-', label='Training acc', color='blue')
+plt.plot(epochs, val_acc, '--', label='Validation acc', color='red')
 plt.title('Training and validation accuracy')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')

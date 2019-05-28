@@ -70,7 +70,7 @@ model.summary()
 
 model.compile(optimizer=tf.train.AdamOptimizer(), loss='binary_crossentropy', metrics=['accuracy'])
 
-history = model.fit(partial_x_train, partial_y_train, epochs=128, batch_size=256, validation_data=(x_val, y_val), verbose=1)
+history = model.fit(partial_x_train, partial_y_train, epochs=150, batch_size=256, validation_data=(x_val, y_val), verbose=1)
 
 
 # 测试
@@ -93,10 +93,10 @@ val_loss = history.history['val_loss']
 epochs = range(1, len(acc) + 1)
 
 plt.plot(epochs, loss, '-', label='Training loss', color='blue')
-plt.plot(epochs, val_loss, '--', label='Validation loss' , color='red')
+plt.plot(epochs, val_loss, '-', label='Validation loss' , color='red')
 plt.title('Training and validation loss')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
+plt.xlabel('Epochs (256 batch size)')
+plt.ylabel('Cross-Entropy Loss')
 plt.legend()
 
 plt.show()
@@ -106,10 +106,10 @@ acc_values = history_dict['acc']
 val_acc_values = history_dict['val_acc']
 
 plt.plot(epochs, acc, '-', label='Training acc', color='blue')
-plt.plot(epochs, val_acc, '--', label='Validation acc', color='red')
+plt.plot(epochs, val_acc, '-', label='Validation acc', color='red')
 plt.title('Training and validation accuracy')
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
+plt.xlabel('Epochs (256 batch size)')
+plt.ylabel('Accuracy %')
 plt.legend()
 
 plt.show()
